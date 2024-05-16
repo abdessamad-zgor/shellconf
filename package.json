@@ -1,0 +1,19 @@
+{
+  "name": "shellconf",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/chalk": "^2.2.0",
+    "@types/node": "^20.12.12",
+    "nodemon": "^3.1.0"
+  },
+  "scripts": {
+    "dev": "node dev.js"
+  }
+}
