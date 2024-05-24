@@ -33,7 +33,6 @@ export enum ANSIBasicColor {
 export type ANSI256Color = ["BG" | "FG", number]
 
 export type PromptComponent = {
-  shell: Shells;
   value: string;
   colors: {
     foreground: ANSIBasicColor | ANSI256Color,
