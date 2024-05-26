@@ -12,8 +12,8 @@ app.use('/assets', express.static('public/assets'))
 app.use("/shellconf", shellconfRouter)
 
 app.use("/*", (req, res) => {
-
-})
+  res.sendFile('public/index.html')
+});
 
 export const listen = () => app.listen(4322, () => {
   console.log("Server is listening...")
