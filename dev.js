@@ -21,4 +21,3 @@ web.stderr.on('data', (chunck) => {
   log(chalk.bold.bgCyan.grey("[Frontend]").concat(chalk.bold.redBright("[ERROR]")).concat(chalk.blue(`${(new Date(Date.now())).toISOString()} ::`)).concat(chunck))
 });
 
-listen()

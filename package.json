@@ -11,9 +11,11 @@
   "devDependencies": {
     "@types/chalk": "^2.2.0",
     "@types/node": "^20.12.12",
+    "esbuild": "^0.21.4",
     "nodemon": "^3.1.0"
   },
   "scripts": {
-    "dev": "node dev.js"
+    "dev": "node dev.js",
+    "build": "esbuild app.js --platform=node --format=esm --bundle --outfile=dist/shellconf.js"
   }
 }

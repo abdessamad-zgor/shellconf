@@ -1,12 +1,22 @@
 import express from 'express';
-import { Environment } from './lib/core.js';
-import { bashPrompt, zbPrompt, zshPrompt } from './lib/presets.js';
+import { Environment, InitShellEnv } from './lib/core.js';
+import { join } from 'path'
 
-let environment = new Environment();
+InitShellEnv()
 
 let app = express()
-environment.setPrompt(bashPrompt)
+app.use(express.json())
+
+app.use('/assets', express.static('public/assets'))
+
+app.use("/shellconf", shellconfRouter)
+
+app.use("/*", (req, res) => {
+
+})
 
 export const listen = () => app.listen(4322, () => {
   console.log("Server is listening...")
 })
+
+listen()
