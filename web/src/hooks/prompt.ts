@@ -11,7 +11,9 @@ export const usePrompt = () => {
     let getPrompts = async () => {
       try {
         let res = await fetch("http://localhost:4322/shellconf/prompt")
-        return (await res.json())
+        let data = await res.json()
+        console.log(data);
+        return data;
       } catch (error) {
         throw error
       }
@@ -27,7 +29,12 @@ export const usePrompt = () => {
     }).catch(err => setError(errS => ({ ...errS, getPrompts: err })))
   }, [])
 
-  useEffect(() => {
+
+  let selectPrompt = (prompt: Prompt) => {
+    return () => setSelectedPrompt(prompt);
+  }
+
+  let setPrompt = () => {
     let setPrompt = async () => {
       if (selectedPrompt) {
         try {
@@ -47,14 +54,9 @@ export const usePrompt = () => {
         return errRest
       })
     }).catch(err => setError(errS => ({ ...errS, setPrompts: err })))
-
-  }, [selectedPrompt])
-
-  let selectPrompt = (prompt: Prompt) => {
-    return () => setSelectedPrompt(prompt);
   }
 
-  return { error, success, prompts, selectedPrompt, selectPrompt }
+  return { error, success, prompts, selectedPrompt, selectPrompt, setPrompt }
 }
 
 export function colorsToStyle(colors: PromptComponent['colors']): CSSProperties {
