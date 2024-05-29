@@ -1,10 +1,13 @@
 import express from 'express';
-import { Environment, InitShellEnv } from './lib/core.js';
 import { join } from 'path'
+import cors from "cors"
 
-InitShellEnv()
+import { shellconfRouter } from './lib/router.js';
+
 
 let app = express()
+
+app.use(cors())
 app.use(express.json())
 
 app.use('/assets', express.static('public/assets'))

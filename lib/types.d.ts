@@ -35,7 +35,8 @@ export type ANSI256Color = ["BG" | "FG", number]
 export type PromptComponent = {
   value: string;
   colors: {
-    foreground: ANSIBasicColor | ANSI256Color,
-    background: ANSIBasicColor | ANSI256Color
+    foreground: ANSIBasicColor | ANSI256Color | string,
+    background: ANSIBasicColor | ANSI256Color | string
   }
 }
+

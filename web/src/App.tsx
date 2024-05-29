@@ -1,10 +1,10 @@
 import { BrowserRouter, NavLink, Route, Routes, useNavigate } from 'react-router-dom'
-import Navbar from './components/Navbar'
-import Prompt from './pages/Prompt'
-import Theme from './pages/Theme'
-import Alias from './pages/Alias'
-import Environment from './pages/Environment'
 import { useEffect } from 'react'
+import Navbar from './components/Navbar'
+import ThemeConfig from './pages/ThemeConfig'
+import AliasConfig from './pages/AliasConfig'
+import EnvironmentConfig from './pages/EnvironmentConfig'
+import PromptConfig from './pages/PromptConfig'
 
 function App() {
 
@@ -15,10 +15,10 @@ function App() {
         <section className='bg-stone-600 border border-teal-400 rounded my-4'>
           <Routes>
             <Route index element={<Redirect />} />
-            <Route path='/prompt' element={<Prompt />} />
-            <Route path='/theme' element={<Theme />} />
-            <Route path='/alias' element={<Alias />} />
-            <Route path='/environment' element={<Environment />} />
+            <Route path='/prompt' element={<PromptConfig />} />
+            <Route path='/theme' element={<ThemeConfig />} />
+            <Route path='/alias' element={<AliasConfig />} />
+            <Route path='/environment' element={<EnvironmentConfig />} />
           </Routes>
         </section>
       </main >
