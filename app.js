@@ -8,6 +8,7 @@ import { shellconfRouter } from './lib/router.js';
 let app = express()
 
 app.use(cors())
+app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 app.use('/assets', express.static('public/assets'))

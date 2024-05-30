@@ -37,8 +37,15 @@ export const usePrompt = () => {
   let setPrompt = () => {
     let setPrompt = async () => {
       if (selectedPrompt) {
+        console.log(selectedPrompt)
         try {
-          let res = await fetch("http://localhost:4322/shellconf/prompt/set", { method: "POST", body: JSON.stringify(selectedPrompt) })
+          let res = await fetch("http://localhost:4322/shellconf/prompt/set", {
+            headers: {
+              'Content-type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(selectedPrompt)
+          });
           return await res.json()
         } catch (error) {
           throw error
