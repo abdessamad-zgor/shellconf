@@ -30,7 +30,8 @@ export const usePrompt = () => {
   }, [])
 
 
-  let selectPrompt = (prompt: Prompt) => {
+  let selectPrompt = (name: string) => {
+    let prompt = prompts.find(p => p.name == name)
     return () => setSelectedPrompt(prompt);
   }
 

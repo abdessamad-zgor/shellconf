@@ -6,13 +6,13 @@ type PromptViewProps = Omit<Prompt, 'shell'> & { selectPrompt?: MouseEventHandle
 
 function PromptView({ name, components, selectPrompt, setPrompt }: PromptViewProps) {
   const componentStyles = useMemo(() => components.map(c => colorsToStyle({ ...c.colors })), [components])
-  const { success } = usePrompt()
+  const { success, selectedPrompt } = usePrompt()
 
   useEffect(() => { console.log(componentStyles) }, [])
 
   if (selectPrompt) {
     return (
-      <div className='border px-4 py-12 bg-current/70 rounded relative text-lg font-light bg-black '>
+      <div className='border px-4 py-12 bg-current/70 rounded relative text-lg font-light bg-black' style={{ border: `0.2em solid ${selectedPrompt && selectedPrompt.name == name ? 'cyan' : 'grey'}` }} onClick={selectPrompt}>
         <p className='absolute top-0 left-0 rounded text-sm font-thin p-2 text-white'>{name}</p>
         {
           components.map((c, i) =>
