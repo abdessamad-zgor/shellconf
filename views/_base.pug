@@ -1,3 +1,12 @@
-doctype html 
 html 
-  
+  head 
+    title Shellconf - #{title}
+    block scripts
+      script(src="/assets/htmx.min.js")
+
+  body
+    block navbar
+      include _navbar.pug
+    block page
+    block _footer
+      include _navbar.pug
