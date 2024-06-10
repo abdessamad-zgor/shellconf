@@ -15,7 +15,7 @@ block page
           "there aren't any prompts for this shells consider adding your own."
       else
         each prompt in prompts
-          div(class="border px-4 py-12 bg-current/70 rounded relative text-lg font-light bg-black", hx-post="/prompt/select", hx-vals=`js:{name:"${selectedPrompt.name}", shell: "${selectedPrompt.shell}"}`, hx-target="#view-prompt", hx-swap="outerHTML", hx-on-htmx-after-request="selectPrompt()")
+          div(class="border px-4 py-12 bg-current/70 rounded relative text-lg font-light bg-black", hx-post="/prompt/select", hx-vals=`js:{name:"${prompt.name}", shell: "${prompt.shell}"}`, hx-target="#view-prompt", hx-swap="outerHTML", hx-on-htmx-after-request="selectPrompt(e)")
             p.absolute.top-0.left-0.rounded.text-sm.font-thin.p-2.text-white #{prompt.name}
             each component in prompt.components
               span(style = component.style) #{component.value}
