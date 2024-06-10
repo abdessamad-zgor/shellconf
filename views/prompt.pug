@@ -1,13 +1,5 @@
 extends _base
 block page
-
-.w-full.flex.flex-col.gap-4
-  .w-full.p-2
-    .border.px-4.py-12.bg-current/70.rounded.relative.text-lg.font-light.bg-black
-      p
-        .absolute.top-0.left-0.rounded.text-sm.font-thin.p-2.text-white #{selectedPrompt.name}
-      each component in selectedPrompt.components
-        span (style = {...component.style})
-          #{component.value}
-
+  .contnen
+    p=hello
 

@@ -1,3 +1,4 @@
+
 enum $Shells {
   BASH,
   ZSH,
@@ -40,3 +41,13 @@ export type PromptComponent = {
   }
 }
 
+export type PromptComponentView = {
+  value: string;
+  style: { [key: string]: string }
+}
+
+export type PromptView = {
+  name: string,
+  shell: Shells,
+  components: PromptComponentView[],
+}
