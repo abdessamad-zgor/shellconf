@@ -594,6 +594,10 @@ video {
   flex-wrap: wrap;
 }
 
+.justify-end {
+  justify-content: flex-end;
+}
+
 .gap-2 {
   gap: 0.5rem;
 }

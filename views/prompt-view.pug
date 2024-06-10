@@ -1,7 +1,8 @@
 #view-prompt.w-full.p-2
-  .border.px-4.py-12.bg-current/70.rounded.relative.text-lg.font-light.bg-black
-    p.absolute.top-0.left-0.rounded.text-sm.font-thin.p-2.text-white = #{prompt.name}
-    each component in prompt.components
-      span(style = {...component.style})
-        component.value
-  button(class="bg-white/80 px-4 rounded border border-stone-200 text-black", hx-post="/prompt/set", hx-target="this", hx-swap="innerHTML", hx-vals=JSON.stringify(selectedPrompt) ) = Set Prompt
+  div(class="border p-2 bg-current/70 rounded relative text-lg font-light bg-black")
+    p.absolute.top-0.left-0.rounded.text-sm.font-thin.p-2.text-white #{selectedPrompt.name}
+    .px-4.py-12
+      each component in selectedPrompt.components
+        span(style = component.style) #{component.value}
+    .flex.justify-end
+      button(class="bg-white/80 px-4 rounded border border-stone-200 text-black", hx-post="/prompt/set", hx-target="this", hx-swap="innerHTML", hx-vals=`js:{name:"${selectedPrompt.name}", shell: "${selectedPrompt.shell}"}` )  Set Prompt

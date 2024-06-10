@@ -2,20 +2,20 @@ extends _base
 block page
   .w-full.flex.flex-col.gap-4.min-h-screen.bg-stone-400
     #view-prompt.w-full.p-2
-      div(class="border px-4 py-12 bg-current/70 rounded relative text-lg font-light bg-black")
+      div(class="border p-2 bg-current/70 rounded relative text-lg font-light bg-black")
         p.absolute.top-0.left-0.rounded.text-sm.font-thin.p-2.text-white #{selectedPrompt.name}
-        each component in selectedPrompt.components
-          span(style = {...component.style})
-            component.value
-        button(class="bg-white/80 px-4 rounded border border-stone-200 text-black", hx-post="/prompt/set", hx-target="this", hx-swap="innerHTML", hx-vals="js:JSON.stringify(selectedPrompt)" )  Set Prompt
+        .px-4.py-12
+          each component in selectedPrompt.components
+            span(style = component.style) #{component.value}
+        .flex.justify-end
+          button(class="bg-white/80 px-4 rounded border border-stone-200 text-black", hx-post="/prompt/set", hx-target="this", hx-swap="innerHTML", hx-vals=`js:{name:"${selectedPrompt.name}", shell: "${selectedPrompt.shell}"}` )  Set Prompt
     .flex.flex-wrap.p-4.gap-2
       if prompts.length==0
         p.font-thin.text-white.
           "there aren't any prompts for this shells consider adding your own."
       else
         each prompt in prompts
-          div(class="border px-4 py-12 bg-current/70 rounded relative text-lg font-light bg-black", hx-post="/prompt/select", hx-target="#view-prompt", hx-swap="outerHTML", hx-on-htmx-after-request="selectPrompt()")
+          div(class="border px-4 py-12 bg-current/70 rounded relative text-lg font-light bg-black", hx-post="/prompt/select", hx-vals=`js:{name:"${selectedPrompt.name}", shell: "${selectedPrompt.shell}"}`, hx-target="#view-prompt", hx-swap="outerHTML", hx-on-htmx-after-request="selectPrompt()")
             p.absolute.top-0.left-0.rounded.text-sm.font-thin.p-2.text-white #{prompt.name}
             each component in prompt.components
-              span(style = {...component.style})
-                component.value
+              span(style = component.style) #{component.value}
