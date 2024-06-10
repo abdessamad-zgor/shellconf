@@ -1,6 +1,8 @@
+- var isActive=(path)=>window && window.location.pathname.includes(path)
+
 nav
   .border-4.border-teal-400.rounded-md.shadow.flexgap-2.p-4.bg-stone-600
     div
       .flex.gap-2
-        a(class=`${isActive("/prompt")? "bg-stone-400 text-white/85 border border-white": "text-stone-200"} py-2 text-xl px-4 rounded`)=Prompt
-        a(class=`${isActive("/theme")? "bg-stone-400 text-white/85 border border-white": "text-stone-200"} py-2 text-xl px-4 rounded`)=Theme
+        a(class=`${isActive("/prompt")? "bg-stone-400 text-white/85 border border-white": "text-stone-200"} py-2 text-xl px-4 rounded`) Prompt
+        a(class=`${isActive("/theme")? "bg-stone-400 text-white/85 border border-white": "text-stone-200"} py-2 text-xl px-4 rounded`) Theme
