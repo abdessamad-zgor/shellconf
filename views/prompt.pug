@@ -1,6 +1,6 @@
 extends _base
 block page
-  .w-full.flex.flex-col.gap-4.min-h-screen.bg-stone-400
+  #prompt-page.w-full.flex.flex-col.gap-4.min-h-screen.bg-stone-400
     #view-prompt.w-full.p-2
       div(class="border p-2 bg-current/70 rounded relative text-lg font-light bg-black")
         p.absolute.top-0.left-0.rounded.text-sm.font-thin.p-2.text-white #{selectedPrompt.name}
@@ -15,7 +15,7 @@ block page
           "there aren't any prompts for this shells consider adding your own."
       else
         each prompt in prompts
-          div(class="border px-4 py-12 bg-current/70 rounded relative text-lg font-light bg-black", hx-post="/prompt/select", hx-vals=`js:{name:"${prompt.name}", shell: "${prompt.shell}"}`, hx-target="#view-prompt", hx-swap="outerHTML", hx-on-htmx-after-request="selectPrompt(e)")
+          div.border.px-4.py-12.bg-current.rounded.relative.text-lg.font-light.bg-black(class=prompt.name==selectedPrompt.name?'border-2 border-cyan-500': '', hx-post="/prompt/select", hx-vals=`js:{name:"${prompt.name}", shell: "${prompt.shell}"}`, hx-target="#prompt-page", hx-swap="outerHTML", hx-on-htmx-after-request="selectPrompt()", data-prompt-name="#{prompt.name}", hx-select="#prompt-page")
             p.absolute.top-0.left-0.rounded.text-sm.font-thin.p-2.text-white #{prompt.name}
             each component in prompt.components
               span(style = component.style) #{component.value}
