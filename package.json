@@ -19,6 +19,6 @@
   },
   "scripts": {
     "dev": "node dev.js",
-    "build": "esbuild app.js --platform=node --format=esm --bundle --outfile=dist/shellconf.js"
+    "build": "esbuild app.js --platform=node --format=esm --bundle --outfile=bin/shellconf"
   }
 }
