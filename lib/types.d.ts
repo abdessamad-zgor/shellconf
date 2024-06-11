@@ -11,6 +11,16 @@ enum $Shells {
 
 export type Shells = keyof typeof $Shells
 
+enum $Terminals {
+  BASH,
+  FISH,
+  ZSH,
+  CSH,
+  WINDOWS
+}
+
+export type Terminals = keyof typeof $Terminals
+
 export enum ANSIBasicColor {
   FG_BLACK = 30,
   FG_RED,
