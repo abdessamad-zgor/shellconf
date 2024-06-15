@@ -61,3 +61,20 @@ export type PromptView = {
   shell: Shells,
   components: PromptComponentView[],
 }
+
+export type Theme = {
+  name: "",
+  terminal: "",
+  pallette: {
+    bright: [],
+    dim: [],
+  },
+  colors: {
+    foreground: "",
+    background: ""
+  },
+  font: {
+    size: 0,
+    family: ""
+  }
+}
