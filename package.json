@@ -1,5 +1,8 @@
 {
   "name": "shellconf",
+  "bin": {
+    "shellconf": "bin/shellconf"
+  },
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
@@ -19,7 +22,7 @@
     "nodemon": "^3.1.0"
   },
   "scripts": {
-    "dev": "node dev.js",
-    "build": "esbuild app.js --platform=node --format=esm --bundle --outfile=bin/shellconf"
+    "build": "npx tailwindcss --input ./public/app.css --output ./public/assets/app-gen.css && esbuild app.js --platform=node --external:express --format=esm --bundle --outfile=bin/shellconf && printf \"%s\n%s\n\" \"#!/usr/bin/env node\" \"$(cat bin/shellconf)\" >bin/shellconf && chmod +x bin/shellconf && npm link",
+    "start": "shellconf"
   }
 }

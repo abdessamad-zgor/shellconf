@@ -1,5 +1,5 @@
 
-enum $Shells {
+enum $Shell {
   BASH,
   ZSH,
   CSH,
@@ -9,17 +9,17 @@ enum $Shells {
   KSH
 }
 
-export type Shells = keyof typeof $Shells
+export type Shell = keyof typeof $Shell
 
-enum $Terminals {
-  BASH,
-  FISH,
-  ZSH,
-  CSH,
+enum $Terminal {
+  ALACRITTY,
+  ITERM,
+  GNOME,
+  KITTY,
   WINDOWS
 }
 
-export type Terminals = keyof typeof $Terminals
+export type Terminal = keyof typeof $Terminal
 
 export enum ANSIBasicColor {
   FG_BLACK = 30,
@@ -58,23 +58,72 @@ export type PromptComponentView = {
 
 export type PromptView = {
   name: string,
-  shell: Shells,
+  shell: Shell,
   components: PromptComponentView[],
 }
 
 export type Theme = {
-  name: "",
-  terminal: "",
-  pallette: {
-    bright: [],
-    dim: [],
+  name?: string,
+  terminal?: Terminal,
+  pallette?: {
+    bright?: {
+      black: string,
+      red: string,
+      green: string,
+      yellow: string,
+      blue: string,
+      purple: string,
+      cyan: string,
+      white: string
+    },
+    dim?: {
+      black: string,
+      red: string,
+      green: string,
+      yellow: string,
+      blue: string,
+      purple: string,
+      cyan: string,
+      white: string
+    },
   },
-  colors: {
-    foreground: "",
-    background: ""
+  colors?: {
+    foreground?: string,
+    background?: string
+  },
+  font?: {
+    size?: number,
+    family?: string
+  }
+}
+
+export type ThemeView = {
+  name?: string,
+  terminal?: Terminal,
+  pallete: {
+    brightBlack: { background: string, color: string },
+    brightRed: { background: string, color: string },
+    brightGreen: { background: string, color: string },
+    brightYellow: { background: string, color: string },
+    brightBlue: { background: string, color: string },
+    brightPurple: { background: string, color: string },
+    brightCyan: { background: string, color: string },
+    brightWhite: { background: string, color: string }
+    black: { background: string, color: string },
+    red: { background: string, color: string },
+    green: { background: string, color: string },
+    yellow: { background: string, color: string },
+    blue: { background: string, color: string },
+    purple: { background: string, color: string },
+    cyan: { background: string, color: string },
+    white: { background: string, color: string }
   },
   font: {
-    size: 0,
-    family: ""
+    "font-size": number,
+    "font-family": string
+  },
+  colors: {
+    background: string,
+    color: string
   }
 }

@@ -1,0 +1,24 @@
+extends _base
+block page
+  #theme-page.w-full.flex.flex-col.gap-4.min-h-screen.bg-stone-400
+    #view-theme.w-full.p-2
+      div(class="border p-2 bg-current/70 rounded relative text-lg font-light bg-black")
+        p.absolute.top-0.left-0.rounded.text-sm.font-thin.p-2.text-white #{selectedTheme.name}
+        .px-4.py-12.flex
+          div(class="basis-1/4 gap-2 flex-wrap")
+            each color in selectedTheme.pallete
+              div(style=color, class="px-2 py-px basis-1/2") #{color.background}
+          div(class="basis-3/4")
+            p(style = selectedTheme.colors)
+        .flex.justify-end
+          button(class="bg-white/80 px-4 rounded border border-stone-200 text-black", hx-post="/prompt/set", hx-target="this", hx-swap="innerHTML", hx-vals=`js:{name:"${selectedPrompt.name}", shell: "${selectedPrompt.shell}"}` )  Set Prompt
+    .flex.flex-wrap.p-4.gap-2
+      if prompts.length==0
+        p.font-thin.text-white.
+          "there aren't any prompts for this shell's consider adding your own."
+      else
+        each prompt in prompts
+          div.border.px-4.py-12.bg-current.rounded.relative.text-lg.font-light.bg-black(class=prompt.name==selectedPrompt.name?'border-2 border-cyan-500': '', hx-post="/prompt/select", hx-vals=`js:{name:"${prompt.name}", shell: "${prompt.shell}"}`, hx-target="#prompt-page", hx-swap="outerHTML", hx-on-htmx-after-request="selectPrompt()", data-prompt-name="#{prompt.name}", hx-select="#prompt-page")
+            p.absolute.top-0.left-0.rounded.text-sm.font-thin.p-2.text-white #{prompt.name}
+            each component in prompt.components
+              span(style = component.style) #{component.value}
