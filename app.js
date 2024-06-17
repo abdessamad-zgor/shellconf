@@ -20,6 +20,9 @@ app.use("/", shellconfRouter)
 
 export const listen = () => app.listen(4322, () => {
   console.log("Server is listening...")
+  let url = 'http://localhost:4322';
+  let start = (process.platform == 'darwin' ? 'open' : process.platform == 'win32' ? 'start' : 'xdg-open');
+  safe_exec(start + ' ' + url);
 })
 
 listen()

@@ -4983,20 +4983,27 @@ var themes = [
 import { homedir as homedir3, type as type2 } from "os";
 import { join as join3 } from "path";
 var toml = __toESM(require_toml(), 1);
+import { exit as exit2 } from "process";
 function getTerminal() {
   let shellname = getShell();
+  let terminal;
   let current_ps = "$$";
-  if (!type2() == "Windows_NT") {
+  if (type2() != "Windows_NT") {
     if (shellname == SHELLS.FISH) current_ps = "$fish_pid";
     let command = (current_ps2) => `ps -o 'cmd=' -p $(ps -o 'ppid=' -p ${current_ps2})`;
     let { ok, err } = safe_exec(command(current_ps));
     if (err) {
+      console.log(err);
       console.log(chalk2.red("failed to get current terminal emulator."));
+      exit2(1);
     }
-    if (ok.includes(TERMINALS.ALACRITTY.toLowerCase())) return TERMINALS.ALACRITTY;
-    else if (ok.includes(TERMINALS.GNOME.toLowerCase())) return TERMINALS.GNOME;
-    else if (ok.includes(TERMINALS.ITERM.toLowerCase())) return TERMINALS.ITERM;
-  } else return TERMINALS.WINDOWS;
+    console.log(ok);
+    if (ok.includes(TERMINALS.ALACRITTY.toLowerCase())) terminal = TERMINALS.ALACRITTY;
+    else if (ok.includes(TERMINALS.GNOME.toLowerCase())) terminal = TERMINALS.GNOME;
+    else if (ok.includes(TERMINALS.ITERM.toLowerCase())) terminal = TERMINALS.ITERM;
+  } else terminal = TERMINALS.WINDOWS;
+  console.log(chalk2.bgWhite.red("Detected: " + terminal.trim()).toString());
+  return terminal;
 }
 function getTerminalConfigFile(terminal) {
   let terminalConfig;
@@ -5087,7 +5094,43 @@ function toPromptView(prompt) {
     )
   };
 }
+function colorBasedOnBackground(background) {
+  let shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+  background = background.replace(shorthandRegex, function(m, r, g, b) {
+    return r + r + g + g + b + b;
+  });
+  let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(background);
+  let rgb = [
+    parseInt(result[1], 16),
+    parseInt(result[2], 16),
+    parseInt(result[3], 16)
+  ];
+  const brightness = Math.round((parseInt(rgb[0]) * 299 + parseInt(rgb[1]) * 587 + parseInt(rgb[2]) * 114) / 1e3);
+  const color = brightness > 125 ? "black" : "white";
+  return color;
+}
 function toThemeView(theme) {
+  return {
+    name: theme?.name,
+    terminal: theme?.terminal,
+    pallete: Object.keys(theme.pallette).map(
+      (p) => Object.keys(theme.pallette[p]).reduce((acc, cur) => {
+        let key = (p == "bright" ? "Bright" : "") + cur.charAt(0).toUpperCase() + cur.slice(1);
+        return [
+          ...acc,
+          { name: key, style: { background: theme.pallette[p][cur], color: colorBasedOnBackground(theme.pallette[p][cur]) } }
+        ];
+      }, [])
+    ).reduce((acc, cur) => [...acc, ...cur], []),
+    font: {
+      "font-size": theme.font.size,
+      "font-family": `'${theme.font.family}', sans-serif`
+    },
+    colors: {
+      background: theme.colors.background,
+      color: theme.colors.foreground
+    }
+  };
 }
 function selectPrompt(e) {
   let promptElements = document.querySelectorAll(".prompt");
@@ -5145,6 +5188,9 @@ app.use("/assets", express2.static("public/assets"));
 app.use("/", shellconfRouter);
 var listen = () => app.listen(4322, () => {
   console.log("Server is listening...");
+  let url = "http://localhost:4322";
+  let start = process.platform == "darwin" ? "open" : process.platform == "win32" ? "start" : "xdg-open";
+  safe_exec(start + " " + url);
 });
 listen();
 export {

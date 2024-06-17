@@ -7,9 +7,9 @@ block page
         .px-4.py-12.flex
           div(class="basis-1/4 gap-2 flex-wrap")
             each color in selectedTheme.pallete
-              div(style=color, class="px-2 py-px basis-1/2") #{color.background}
-          div(class="basis-3/4")
-            p(style = selectedTheme.colors)
+              div(style=color.style, class="px-2 py-px basis-1/2") "#{color.name} #{color.style.background}"
+          div(class="basis-3/4 flex flex-col")
+            p(style = {...selectedTheme.colors, ...selectedTheme.font}) "the quick brown fow jumps over the lazy dog."
         .flex.justify-end
           button(class="bg-white/80 px-4 rounded border border-stone-200 text-black", hx-post="/prompt/set", hx-target="this", hx-swap="innerHTML", hx-vals=`js:{name:"${selectedPrompt.name}", shell: "${selectedPrompt.shell}"}` )  Set Prompt
     .flex.flex-wrap.p-4.gap-2

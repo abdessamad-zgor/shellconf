@@ -100,24 +100,7 @@ export type Theme = {
 export type ThemeView = {
   name?: string,
   terminal?: Terminal,
-  pallete: {
-    brightBlack: { background: string, color: string },
-    brightRed: { background: string, color: string },
-    brightGreen: { background: string, color: string },
-    brightYellow: { background: string, color: string },
-    brightBlue: { background: string, color: string },
-    brightPurple: { background: string, color: string },
-    brightCyan: { background: string, color: string },
-    brightWhite: { background: string, color: string }
-    black: { background: string, color: string },
-    red: { background: string, color: string },
-    green: { background: string, color: string },
-    yellow: { background: string, color: string },
-    blue: { background: string, color: string },
-    purple: { background: string, color: string },
-    cyan: { background: string, color: string },
-    white: { background: string, color: string }
-  },
+  pallete: { style: { background: string, color: string }, name: string }[],
   font: {
     "font-size": number,
     "font-family": string
