@@ -1,24 +1,30 @@
 extends _base
 block page
+  - var paragraphStyle = {...selectedTheme.colors, ...selectedTheme.font}
   #theme-page.w-full.flex.flex-col.gap-4.min-h-screen.bg-stone-400
     #view-theme.w-full.p-2
-      div(class="border p-2 bg-current/70 rounded relative text-lg font-light bg-black")
+      div(class="border p-2 bg-current/70 rounded relative text-lg font-light flex flex-col", style={background: paragraphStyle.background})
         p.absolute.top-0.left-0.rounded.text-sm.font-thin.p-2.text-white #{selectedTheme.name}
-        .px-4.py-12.flex
-          div(class="basis-1/4 gap-2 flex-wrap")
-            each color in selectedTheme.pallete
-              div(style=color.style, class="px-2 py-px basis-1/2") "#{color.name} #{color.style.background}"
-          div(class="basis-3/4 flex flex-col")
-            p(style = {...selectedTheme.colors, ...selectedTheme.font}) "the quick brown fow jumps over the lazy dog."
+        .px-4.py-12.flex.items-center.justify-center.w-full
+          div(class="w-1/4 px-12 grid grid-rows-8 grid-flow-col gap-2")
+            each color in selectedTheme.palette
+              span(style={background: color.style.background, color: color.style.color}, class="text-center px-2 w-24 text-[12px] font-light") #{color.name}
+          div(class="w-3/4 flex justify-center items-center")
+            p(style = paragraphStyle).
+              the quick brown fow jumps over the lazy dog.
         .flex.justify-end
-          button(class="bg-white/80 px-4 rounded border border-stone-200 text-black", hx-post="/prompt/set", hx-target="this", hx-swap="innerHTML", hx-vals=`js:{name:"${selectedPrompt.name}", shell: "${selectedPrompt.shell}"}` )  Set Prompt
+          button(class="bg-white/80 px-4 rounded border border-stone-200 text-black", hx-post="/theme/set", hx-target="this", hx-swap="innerHTML", hx-vals=`js:{name:"${selectedTheme.name}", terminal: "${selectedTheme.terminal}"}` ) Set theme
     .flex.flex-wrap.p-4.gap-2
-      if prompts.length==0
+      if themes.length==0
         p.font-thin.text-white.
-          "there aren't any prompts for this shell's consider adding your own."
+          there aren't any themes for this terminal, consider adding your own.
       else
-        each prompt in prompts
-          div.border.px-4.py-12.bg-current.rounded.relative.text-lg.font-light.bg-black(class=prompt.name==selectedPrompt.name?'border-2 border-cyan-500': '', hx-post="/prompt/select", hx-vals=`js:{name:"${prompt.name}", shell: "${prompt.shell}"}`, hx-target="#prompt-page", hx-swap="outerHTML", hx-on-htmx-after-request="selectPrompt()", data-prompt-name="#{prompt.name}", hx-select="#prompt-page")
-            p.absolute.top-0.left-0.rounded.text-sm.font-thin.p-2.text-white #{prompt.name}
-            each component in prompt.components
-              span(style = component.style) #{component.value}
+        each theme in themes
+          div.border.px-4.py-12.bg-current.rounded.relative.text-lg.font-light.bg-black.flex(class=theme.name==selectedTheme.name?'border-2 border-cyan-500 w-1/3': 'w-1/3', hx-post="/theme/select", hx-vals=`js:{name:"${theme.name}", terminal: "${theme.terminal}"}`, hx-target="#theme-page", hx-swap="outerHTML", hx-on-htmx-after-request="selecttheme()", data-theme-name="#{theme.name}", hx-select="#theme-page", style={background: theme.colors.background})
+            p.absolute.top-0.left-0.rounded.text-sm.font-thin.p-2.text-white #{theme.name}
+            div(class="grid grid-rows-8 grid-flow-col gap-2")
+              each color in selectedTheme.palette
+                span(style={background: color.style.background, color: color.style.color}, class="text-center w-16 text-[9px] font-light") #{color.name}
+            div(class="w-3/4 flex justify-center items-center")
+              p(style = paragraphStyle, class="text-xs text-center").
+                the quick brown fow jumps over the lazy dog.

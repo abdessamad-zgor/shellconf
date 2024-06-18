@@ -65,7 +65,7 @@ export type PromptView = {
 export type Theme = {
   name?: string,
   terminal?: Terminal,
-  pallette?: {
+  palette?: {
     bright?: {
       black: string,
       red: string,
@@ -100,7 +100,7 @@ export type Theme = {
 export type ThemeView = {
   name?: string,
   terminal?: Terminal,
-  pallete: { style: { background: string, color: string }, name: string }[],
+  palette: { style: { background: string, color: string }, name: string }[],
   font: {
     "font-size": number,
     "font-family": string
