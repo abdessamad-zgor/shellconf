@@ -5119,7 +5119,6 @@ function colorBasedOnBackground(background) {
   return color;
 }
 function toThemeView(theme) {
-  console.log(theme);
   return {
     name: theme?.name,
     terminal: theme?.terminal,

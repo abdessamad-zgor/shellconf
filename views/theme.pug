@@ -5,10 +5,10 @@ block page
     #view-theme.w-full.p-2
       div(class="border p-2 bg-current/70 rounded relative text-lg font-light flex flex-col", style={background: paragraphStyle.background})
         p.absolute.top-0.left-0.rounded.text-sm.font-thin.p-2.text-white #{selectedTheme.name}
-        .px-4.py-12.flex.items-center.justify-center.w-full
+        .px-4.pt-12.flex.items-center.justify-center.w-full
           div(class="w-1/4 px-12 grid grid-rows-8 grid-flow-col gap-2")
             each color in selectedTheme.palette
-              span(style={background: color.style.background, color: color.style.color}, class="text-center px-2 w-24 text-[12px] font-light") #{color.name}
+              span(style={background: color.style.background, color: color.style.color}, class="text-center px-2 flex justify-center items-center w-24 h-6 text-[12px] font-light") #{color.name}
           div(class="w-3/4 flex justify-center items-center")
             p(style = paragraphStyle).
               the quick brown fow jumps over the lazy dog.
@@ -20,11 +20,11 @@ block page
           there aren't any themes for this terminal, consider adding your own.
       else
         each theme in themes
-          div.border.px-4.py-12.bg-current.rounded.relative.text-lg.font-light.bg-black.flex(class=theme.name==selectedTheme.name?'border-2 border-cyan-500 w-1/3': 'w-1/3', hx-post="/theme/select", hx-vals=`js:{name:"${theme.name}", terminal: "${theme.terminal}"}`, hx-target="#theme-page", hx-swap="outerHTML", hx-on-htmx-after-request="selecttheme()", data-theme-name="#{theme.name}", hx-select="#theme-page", style={background: theme.colors.background})
+          div.border.px-4.pt-12.pb-4.bg-current.rounded.relative.text-lg.font-light.bg-black.flex(class=theme.name==selectedTheme.name?'border-2 border-cyan-500 w-1/3': 'w-1/3', hx-post="/theme/select", hx-vals=`js:{name:"${theme.name}", terminal: "${theme.terminal}"}`, hx-target="#theme-page", hx-swap="outerHTML", hx-on-htmx-after-request="selecttheme()", data-theme-name="#{theme.name}", hx-select="#theme-page", style={background: theme.colors.background})
             p.absolute.top-0.left-0.rounded.text-sm.font-thin.p-2.text-white #{theme.name}
             div(class="grid grid-rows-8 grid-flow-col gap-2")
               each color in selectedTheme.palette
-                span(style={background: color.style.background, color: color.style.color}, class="text-center w-16 text-[9px] font-light") #{color.name}
+                span(style={background: color.style.background, color: color.style.color}, class="text-center w-16 h-5 flex justify-center items-center text-[9px] font-light") #{color.name}
             div(class="w-3/4 flex justify-center items-center")
               p(style = paragraphStyle, class="text-xs text-center").
                 the quick brown fow jumps over the lazy dog.
